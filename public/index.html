@@ -5,7 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
   <body>
     <noscript>
@@ -13,5 +23,19 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>
+      const button = document.querySelector('.modal-button')
+        button.addEventListener('click', toggleModal)
+
+        const overlay = document.querySelector('.modal-overlay')
+        overlay.addEventListener('click', toggleModal)
+
+
+        function toggleModal() {
+          const modal = document.querySelector('.modal')
+          modal.classList.toggle('opacity-0')
+          modal.classList.toggle('pointer-events-none')
+        }
+    </script>
   </body>
 </html>
