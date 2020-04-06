@@ -22,10 +22,10 @@
         <div class="md:w-3/4">
           <div class="flex items-center justify-between">
             <a href="" class="rounded-full bg-yellow-400 px-2 py-1 text-xs font-normal mr-3 text-white">Category</a>
-            <p class="text-green-500 text-4xl">{{item.status}}</p>
+            <p class="text-green-500 text-4xl font-semibold">Available</p>
           </div>
           <h2 class="text-4xl font-bold">{{item.title}}</h2>
-          <p class="text-2xl mb-3">{{item.created_at}}</p>
+          <p class="text-2xl mb-3">17 Agustus 1945</p>
           <p>{{item.description}}</p>
         </div>
         <div class="flex justify-end mt-3 md:float-right md:w-1/5">
