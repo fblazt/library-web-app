@@ -25,11 +25,11 @@
             </div>
           </form>
           <div>
-            <input type="submit" value="Login" class="py-1 px-8 rounded bg-black text-white mr-1" />
+            <button form="form" @click="register" class="py-1 px-6 rounded bg-white text-gray-500 border border-solid border-gray-400 mr-1">Sign Up</button>
             <router-link
-              class="py-1 px-6 rounded bg-white text-gray-500 border border-solid border-gray-400 ml-1"
-              to="/register"
-            >Sign Up</router-link>
+              class="py-1 px-8 rounded bg-black text-white mr-1"
+              to="/login"
+            >Login</router-link>
           </div>
         </section>
       </main>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 
 import AuthLeftFlex from "../components/modules/AuthLeftFlex";
 import AuthHeader from "../components/modules/AuthHeader";
@@ -54,14 +54,18 @@ import AuthFormTitle from "../components/modules/AuthFormTitle";
 
 export default {
   name: "Register",
-  data: function() {
+  data() {
     return {
       formTitle: `Register`,
       formDesc: `Welcome Back, Please Register to create account`,
       usernameLabel: `Username`,
       nameLabel: `Name`,
       emailLabel: `Email Address`,
-      passwordLabel: `Password`
+      passwordLabel: `Password`,
+      username: null,
+      email: null,
+      fullname: null,
+      password: null,
     };
   },
   components: {
@@ -69,10 +73,22 @@ export default {
     AuthHeader,
     AuthFormTitle,
   },
-  // mounted() {
-  //   axios
-  //     .post("")
-  // }
+  methods: {
+    register() {
+      axios
+        .post("http://localhost:1202/user/register", {
+          email: this.email,
+          fullname: this.fullname,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log(res); 
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
+  },
 };
 </script>
 
