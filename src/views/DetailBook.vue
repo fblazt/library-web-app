@@ -5,8 +5,8 @@
       <header class="h-64 pt-56 mt-16 bg-cover" :style="image">
         <div class="flex justify-end -mt-48 px-1 md:mr-10">
           <!-- <a href="" class="modal-button text-white text-2xl font-thin mx-1">Edit</a> -->
-          <p class="modal-button text-white text-2xl font-thin mx-1">Edit</p>
-          <a href="" class="text-white text-2xl font-thin mx-1">Delete</a>
+          <p class="modal-button text-white text-2xl font-normal mr-3">Edit</p>
+          <a href="" class="text-white text-2xl font-normal ">Delete</a>
         </div>
         <div class="modal opacity-0 pointer-events-none absolute w-full h-full top-0 left-0 flex items-center justify-center">
           <div class="modal-overlay absolute w-full h-full bg-black opacity-25 top-0 left-0 cursor-pointer"></div>
@@ -22,7 +22,7 @@
         <div class="md:w-3/4">
           <div class="flex items-center justify-between">
             <a href="" class="rounded-full bg-yellow-400 px-2 py-1 text-xs font-normal mr-3 text-white">Category</a>
-            <p class="text-green-500 text-4xl">Status</p>
+            <p class="text-green-500 text-4xl">{{item.status}}</p>
           </div>
           <h2 class="text-4xl font-bold">{{item.title}}</h2>
           <p class="text-2xl mb-3">{{item.created_at}}</p>
@@ -52,6 +52,7 @@ import Navbar from "../components/modules/Navbar";
 
 export default {
   name: 'DetailBook',
+  props: ['id'],
   data() {
     return {
       data: [0]
@@ -62,13 +63,13 @@ export default {
   },
   mounted() {
     axios
-      .get(`http://localhost:1202/book/4`)
+      .get(`http://localhost:1202/book/${this.id}`)
       .then(response => (this.data = response.data.result));
   },
   computed: {
     image() {
       return {
-        backgroundImage : `url(${this.data.image})`,
+        backgroundImage : `url(${this.data[0].image})`,
       }
     }
   }

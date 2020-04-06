@@ -35,6 +35,7 @@ const routes = [
     path: '/detail-book/:id',
     name: 'DetailBook',
     component: DetailBook,
+    props: true,
   },
   {
     path: '/user/borrow-books',

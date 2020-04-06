@@ -8,20 +8,20 @@
         <section class="flex flex-col">
           <form id="form" class="shadow-2xl mb-5">
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
-              <label for="email" class="text-gray-500">{{ usernameLabel }}</label>
-              <input type="text" placeholder class="text-black" />
+              <label for="username" class="text-gray-500">{{ usernameLabel }}</label>
+              <input type="text" placeholder class="text-black" v-model="username" />
             </div>
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
-              <label for="email" class="text-gray-500">{{ nameLabel }}</label>
-              <input type="text" placeholder class="text-black" />
+              <label for="fullname" class="text-gray-500">{{ nameLabel }}</label>
+              <input type="text" placeholder class="text-black" v-model="fullname" />
             </div>
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
               <label for="email" class="text-gray-500">{{ emailLabel }}</label>
-              <input type="text" placeholder class="text-black" />
+              <input type="text" placeholder class="text-black" v-model="email" />
             </div>
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
               <label for="password" class="text-gray-500">{{ passwordLabel }}</label>
-              <input type="password" placeholder class="text-black" />
+              <input type="password" placeholder class="text-black" v-model="password" />
             </div>
           </form>
           <div>
