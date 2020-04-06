@@ -4,7 +4,7 @@
     <section class="lg:w-2/5 w-screen flex flex-col justify-between">
       <AuthHeader></AuthHeader>
       <main class="self-center md:w-3/4">
-        <AuthFormTitle formTitle="Login" formDesc="Welcome Back, Please Login to your account"></AuthFormTitle>
+        <AuthFormTitle :formTitle="formTitle" :formDesc="formDesc"></AuthFormTitle>
         <section class="flex flex-col">
           <form id="form" class="shadow-2xl mb-5">
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
@@ -51,6 +51,8 @@ export default {
   name: "Login",
   data: function() {
     return {
+      formTitle: `Login`,
+      formDesc: `Welcome Back, Please Login to your account`,
       emailLabel: `Email Address`,
       passwordLabel: `Password`
     };
