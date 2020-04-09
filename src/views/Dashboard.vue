@@ -70,7 +70,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:1202/book")
+      .get("http://localhost:8000/book")
       .then(response => (this.data = response.data.result));
   },
 };
