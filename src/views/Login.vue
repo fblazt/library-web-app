@@ -15,6 +15,7 @@
               <label for="password" class="text-gray-500">{{ passwordLabel }}</label>
               <input type="password" class="text-black" name="password" v-model="password"/>
             </div>
+            <div v-if="!login ? 'Data salah' : ''"></div>
           </form>
           <div class="flex justify-between mb-8">
             <label for="checkbox" class="text-gray-500">
@@ -70,15 +71,16 @@ export default {
     login(e) {
       e.preventDefault()
       axios
-        .post("http://localhost:8000/user/login", {
+        .post("http://localhost:8000/api/v1/user/login", {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
-          // this.$router.push('/dashboard')
+          this.$router.push('/dashboard')
           console.log(res)
         })
         .catch((err) => {
+
           console.log(err.res)
         })
     }

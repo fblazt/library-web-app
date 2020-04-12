@@ -4,9 +4,8 @@
     <div class="flex flex-col" v-for="item in data" :key="item.id">
       <header class="h-64 pt-56 mt-16 bg-cover" :style="image">
         <div class="flex justify-end -mt-48 px-1 md:mr-10">
-          <!-- <a href="" class="modal-button text-white text-2xl font-thin mx-1">Edit</a> -->
-          <button class="modal-button text-white text-2xl font-normal mr-3">Edit</button>
-          <button href class="text-white text-2xl font-normal">Delete</button>
+          <button @click="isOpen = !isOpen" class="modal-button text-2xl font-normal mr-3 bg-white rounded-sm px-2 hover:text-white hover:bg-yellow-500">Edit</button>
+          <button @click="deleteBook" class="text-2xl font-normal bg-white rounded-sm px-2 hover:text-white hover:bg-yellow-500">Delete</button>
         </div>
       </header>
       <div id="thumbnail" class="flex items-center justify-center md:justify-end md:mr-10">
@@ -18,11 +17,11 @@
             <a
               href
               class="rounded-full bg-yellow-400 px-2 py-1 text-xs font-normal mr-3 text-white"
-            >Category</a>
-            <p class="text-green-500 text-4xl font-semibold">Available</p>
+            >{{item.name_category}}</a>
+            <p class="text-4xl font-semibold" :class="item.status == 'Available' ? 'text-green-500' : 'text-red-500'">{{item.status}}</p>
           </div>
           <h2 class="text-4xl font-bold">{{item.title}}</h2>
-          <p class="text-2xl mb-3">17 Agustus 1945</p>
+          <p class="text-2xl mb-3">{{item.created_at}}</p>
           <p>{{item.description}}</p>
         </div>
         <div class="flex justify-end mt-3 md:float-right md:w-1/5">
@@ -46,112 +45,68 @@
               />
             </svg>
           </router-link>
-          <!-- <button type="submit" class="rounded bg-yellow-500 py-3 w-1/5 mx-1 flex justify-center shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-white" width="24" height="24">
-              <path class="heroicon-ui" d="M17 16a3 3 0 11-2.83 2H9.83a3 3 0 11-5.62-.1A3 3 0 015 12V4H3a1 1 0 110-2h3a1 1 0 011 1v1h14a1 1 0 01.9 1.45l-4 8a1 1 0 01-.9.55H5a1 1 0 000 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z"/>
-            </svg>
-          </button>-->
         </div>
       </main>
     </div>
-    <div id="modal" class="fixed h-full w-full opacity-75 w-1/2">
-      <form class="w-3/4 mx-auto bg-blue-700 mt-24">
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-first-name"
-            >First Name</label>
-            <input
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-first-name"
-              type="text"
-              placeholder="Jane"
-            />
-            <p class="text-red-500 text-xs italic">Please fill out this field.</p>
-          </div>
-          <div class="w-full md:w-1/2 px-3">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-last-name"
-            >Last Name</label>
-            <input
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-last-name"
-              type="text"
-              placeholder="Doe"
-            />
+
+    <!-- Modal -->
+    <div id="modal" :class="isOpen ? 'fixed h-full w-full w-1/2' : 'hidden'" class=" overflow-y-auto">
+      <form id="update" class="w-1/2 mx-auto bg-white my-24 flex flex-col justify-center items-center p-10 rounded-lg shadow-2xl" v-for="input in data" :key="input.id">
+        <div class="flex flex-col mb-5 w-full">
+          <div class="flex flex-row justify-between">
+            <p class="text-4xl">Edit book</p>
+            <button @click="isOpen = !isOpen">
+              <svg
+            class="w-12 h-12 fill-current"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              v-if="isOpen"
+              class="heroicon-ui"
+              d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
+            /></svg>
+            </button>
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-password"
-            >Password</label>
-            <input
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-password"
-              type="password"
-              placeholder="******************"
-            />
-            <p class="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
+        <div class="flex flex-col mb-5 w-3/5">
+          <div class="flex flex-row justify-between">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="h-10 w-64 px-2 rounded-lg border border-black border-solid" v-model="input.title">
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-2">
-          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-city"
-            >City</label>
-            <input
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-city"
-              type="text"
-              placeholder="Albuquerque"
-            />
+        <div class="flex flex-col my-5 w-3/5">
+          <div class="flex flex-row justify-between">
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" class="h-10 w-64 px-2 rounded-lg border border-black border-solid" v-model="input.author">
           </div>
-          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-state"
-            >State</label>
-            <div class="relative">
-              <select
-                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-              >
-                <option>New Mexico</option>
-                <option>Missouri</option>
-                <option>Texas</option>
-              </select>
-              <div
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-              >
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                  />
-                </svg>
-              </div>
-            </div>
+        </div>
+        <div class="flex flex-col my-5 w-3/5">
+          <div class="flex flex-row justify-between">
+            <label for="image">Image</label>
+            <input type="text" name="image" id="image" class="h-10 w-64 px-2 rounded-lg border border-black border-solid" v-model="input.image">
           </div>
-          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-zip"
-            >Zip</label>
-            <input
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-zip"
-              type="text"
-              placeholder="90210"
-            />
+        </div>
+        <div class="flex flex-col my-5 w-3/5">
+          <div class="flex flex-row justify-between">
+            <label for="status">Status</label>
+            <input type="text" name="status" id="status" class="h-10 w-64 px-2 rounded-lg border border-black border-solid" v-model="input.status">
           </div>
+        </div>
+        <div class="flex flex-col my-5 w-3/5">
+          <div class="flex flex-row justify-between">
+            <label for="category">Category</label>
+            <input type="text" name="category" id="category" class="h-10 w-64 px-2 rounded-lg border border-black border-solid" v-model="input.id_category">
+          </div>
+        </div>
+        <div class="flex flex-col my-5 w-3/5">
+          <div class="flex flex-row justify-between">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="5" class="w-64 px-2 rounded-lg border border-black border-solid" v-model="input.description"></textarea>
+          </div>
+        </div>
+        <div class="flex flex-row justify-end mt-5 w-3/4">
+          <button form="update" @click="updateBook" class="rounded-lg px-10 py-2 text-white bg-yellow-500 text-2xl">Save</button>
         </div>
       </form>
     </div>
@@ -167,7 +122,8 @@ export default {
   props: ["id"],
   data() {
     return {
-      data: [0]
+      data: [],
+      isOpen: false,
     };
   },
   components: {
@@ -175,8 +131,40 @@ export default {
   },
   mounted() {
     axios
-      .get(`http://localhost:8000/book/${this.id}`)
+      .get(`http://localhost:8000/api/v1/book/${this.id}`)
       .then(response => (this.data = response.data.result));
+  },
+  methods: {
+    updateBook(e) {
+      e.preventDefault()
+      axios
+        .patch(`http://localhost:8000/api/v1/book/${this.id}`, {
+        title: this.data.title,
+        description: this.data.description,
+        image: this.data.image,
+        author: this.data.author,
+        status: this.data.status,
+        id_category: this.data.id_category,
+        })
+        .then(res => {
+          this.$router.push(`detail-book/${this.id}`)
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteBook() {
+      axios
+        .delete(`http://localhost:8000/api/v1/book/${this.id}`)
+        .then(res => {
+          this.$router.push('/dashboard')
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   computed: {
     image() {

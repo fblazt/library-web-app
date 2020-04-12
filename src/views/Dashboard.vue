@@ -4,10 +4,10 @@
     <main class="m-5 mt-20">
       <section class="flex flex-col">
         <div class="h-64 w-full my-5 flex justify-around items-center">
-          <div class=" hidden md:flex h-56 w-1/4 rounded-lg bg-gray-400 shadow-xl flex-col justify-end">
+          <div v-for="item in data[Math.floor(Math.random() * data.length)]" :key="item.id" class=" hidden md:flex h-56 w-1/4 rounded-lg bg-gray-400 shadow-xl flex-col justify-end">
             <div class="h-1/2 bg-gray-500 p-5 text-white rounded-b-lg">
-              <h2 class="text-2xl font-bold">Book title</h2>
-              <p class="text-xl font-semibold">Author</p>
+              <h2 class="text-2xl font-bold">{{item.title}}</h2>
+              <p class="text-xl font-semibold">{{item.author}}</p>
             </div>
           </div>
           <div class="h-64 w-full md:w-4/12 rounded-lg bg-gray-400 shadow-xl flex flex-col justify-end">
@@ -58,6 +58,7 @@ export default {
   data() {
     return {
       data: [],
+      randomData: []
     };
   },
   components: {
@@ -67,10 +68,14 @@ export default {
     dataRange() {
       return this.data.slice(0, 12);
     },
+    // dataRandom() {
+    //   // const random = Math.floor(Math.random() * this.data.length);
+    //   // return this.randomData = this.data[random];
+    // },
   },
   mounted() {
     axios
-      .get("http://localhost:8000/book")
+      .get("http://localhost:8000/api/v1/book")
       .then(response => (this.data = response.data.result));
   },
 };

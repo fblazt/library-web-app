@@ -6,11 +6,9 @@
       <main class="self-center md:w-3/4">
         <AuthFormTitle :formTitle="formTitle" :formDesc="formDesc" />
         <section class="flex flex-col">
-          <!-- <ValidationObserver> -->
           <form id="form" @submit.prevent="registerSubmit" class="shadow-2xl mb-5">
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
               <label for="username" class="text-gray-500">{{ usernameLabel }}</label>
-              <!-- <ValidationProvider rules="required" v-slot="errors"> -->
               <input
                 type="text"
                 name="username"
@@ -23,12 +21,9 @@
                 v-if="submitted && !$v.username.required"
                 class="invalid-feedback"
               >Username is required</div>
-              <!-- <span>{{ errors[0] }}</span>
-              </ValidationProvider>-->
             </div>
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
               <label for="fullname" class="text-gray-500">{{ nameLabel }}</label>
-              <!-- <ValidationProvider rules="required|alpha" v-slot="errors"> -->
               <input
                 type="text"
                 name="fullname"
@@ -41,23 +36,17 @@
                 v-if="submitted && !$v.fullname.required"
                 class="invalid-feedback"
               >Fullname is required</div>
-              <!-- <span>{{ errors[0] }}</span>
-              </ValidationProvider>-->
             </div>
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
               <label for="email" class="text-gray-500">{{ emailLabel }}</label>
-              <!-- <ValidationProvider rules="required|email" v-slot="errors" class="flex flex-col"> -->
               <input type="email" name="email" id="email" class="text-black" v-model="email" :class="{ 'is-invalid': submitted && $v.email.$error }" />
               <div v-if="submitted && $v.email.$error" class="invalid-feedback">
                   <span v-if="!$v.email.required">Email is required</span>
                   <span v-if="!$v.email.email">Email is invalid</span>
               </div>
-              <!-- <span class="text-red">{{ errors[0] }}</span>
-              </ValidationProvider>-->
             </div>
             <div class="flex flex-col border-gray-400 border-solid border rounded-sm p-2">
               <label for="password" class="text-gray-500">{{ passwordLabel }}</label>
-              <!-- <ValidationProvider rules="required" v-slot="errors"> -->
               <input
                 type="password"
                 name="password"
@@ -70,11 +59,8 @@
                   <span v-if="!$v.password.required">Password is required</span>
                   <span v-if="!$v.password.minLength">Password must be at least 6 characters</span>
               </div>
-              <!-- <span class="text-red">{{ errors[0] }}</span>
-              </ValidationProvider>-->
             </div>
           </form>
-          <!-- </ValidationObserver> -->
           <div class="flex w-full justify-center text-center">
             <button
               form="form"
@@ -147,7 +133,8 @@ export default {
     // ValidationProvider
   },
   methods: {
-    registerSubmit() {
+    registerSubmit(e) {
+      e.preventDefault()
       this.submitted = true;
 
       this.$v.$touch();
@@ -155,7 +142,7 @@ export default {
         return;
       } else {
       axios
-        .post("http://localhost:8000/user/register", {
+        .post("http://localhost:8000/api/v1/user/register", {
           email: this.email,
           fullname: this.fullname,
           password: this.password
