@@ -49,6 +49,7 @@ git clone https://github.com/fblazt/library-web-app.git
 npm install
 ```
 3. Add .env file at root folder project, and add following
+, you can get the API URL from [this backend project](https://github.com/fblazt/library-api)
 ```sh
 VUE_APP_API_URL=[Backend API]
 ```
