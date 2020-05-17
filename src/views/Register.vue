@@ -133,7 +133,7 @@ export default {
         return;
       } else {
       axios
-        .post("http://localhost:8000/api/v1/user/register", {
+        .post(`${process.env.VUE_APP_API_URL}user/register`, {
           email: this.email,
           fullname: this.fullname,
           password: this.password

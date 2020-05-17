@@ -142,7 +142,7 @@ export default {
   mounted() {
     
     axios
-      .get(`http://localhost:8000/api/v1/book/${this.id}`)
+      .get(`${process.env.VUE_APP_API_URL}book/${this.id}`)
       .then(response => (this.data = response.data.result));
       // .then(res => console.log(res.data.result[0].image))    
       
@@ -151,7 +151,7 @@ export default {
     updateBook(e) {
       e.preventDefault()
       axios
-        .patch(`http://localhost:8000/api/v1/book/${this.id}`, {
+        .patch(`${process.env.VUE_APP_API_URL}book/${this.id}`, {
         title: this.data.title,
         description: this.data.description,
         image: this.data.image,
@@ -168,7 +168,7 @@ export default {
     },
     deleteBook() {
       axios
-        .delete(`http://localhost:8000/api/v1/book/${this.id}`)
+        .delete(`${process.env.VUE_APP_API_URL}book/${this.id}`)
         .then(res => {
           this.$router.push('/dashboard')
           console.log(res)

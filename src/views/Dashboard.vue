@@ -83,7 +83,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:8000/api/v1/book")
+      .get(`${process.env.VUE_APP_API_URL}book`)
       .then(response => (this.data = response.data.result));
   },
 };

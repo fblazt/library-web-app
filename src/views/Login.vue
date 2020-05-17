@@ -79,7 +79,7 @@ export default {
     login(e) {
       e.preventDefault()
       axios
-        .post("http://localhost:8000/api/v1/user/login", {
+        .post(`${process.env.VUE_APP_API_URL}user/login`, {
           email: this.email,
           password: this.password,
         })
