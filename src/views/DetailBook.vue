@@ -21,7 +21,7 @@
             <p class="text-4xl font-semibold" :class="item.status == 'Available' ? 'text-green-500' : 'text-red-500'">{{item.status}}</p>
           </div>
           <h2 class="text-4xl font-bold">{{item.title}}</h2>
-          <p class="text-2xl mb-3">{{item.created_at}}</p>
+          <p class="text-2xl mb-3">2020-03-26</p>
           <p>{{item.description}}</p>
         </div>
         <div class="flex justify-end mt-3 md:float-right md:w-1/5">
@@ -115,6 +115,9 @@
 
 <script>
 import axios from "axios";
+
+// import { required } from "vuelidate/lib/validators";
+
 import Navbar from "../components/modules/Navbar";
 
 export default {
@@ -122,17 +125,27 @@ export default {
   props: ["id"],
   data() {
     return {
-      data: [],
+      data: {},
       isOpen: false,
     };
   },
+  // validations: {
+  //   title: { required },
+  //   author: { required },
+  //   description: { required },
+  //   image: { required },
+  //   id_category: { required },
+  // },
   components: {
     Navbar
   },
   mounted() {
+    
     axios
       .get(`http://localhost:8000/api/v1/book/${this.id}`)
       .then(response => (this.data = response.data.result));
+      // .then(res => console.log(res.data.result[0].image))    
+      
   },
   methods: {
     updateBook(e) {
@@ -143,7 +156,6 @@ export default {
         description: this.data.description,
         image: this.data.image,
         author: this.data.author,
-        status: this.data.status,
         id_category: this.data.id_category,
         })
         .then(res => {

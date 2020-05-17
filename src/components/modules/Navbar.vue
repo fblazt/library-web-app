@@ -25,8 +25,8 @@
       </div>
       <div class="flex flex-col ml-5 my-5">
         <a href class="mt-2 text-xl font-bold">Explore</a>
-        <a href class="mt-2 text-xl font-bold">History</a>
-        <button @click="modal = !modal" class="mt-2 text-xl font-bold">Add Book</button>
+        <router-link to="/user/borrow-books" class="mt-2 text-xl font-bold">History</router-link>
+        <a @click="modal = !modal" class="mt-2 text-xl font-bold cursor-pointer">Add Book</a>
         <router-link to="/login" class="mt-2 text-xl font-bold">Log out</router-link>
       </div>
     </aside>
@@ -199,6 +199,7 @@ export default {
   name: "Navbar",
   data() {
     return {
+      user: {},
       modal: false,
       isOpen: false,
       dropdownOne: false,
@@ -220,18 +221,18 @@ export default {
       bookData.append('description', this.book.description);
       bookData.append('author', this.book.author);
       bookData.append('image', this.$refs.file.files[0]);
-      bookData.append('id_category', this.book.category);  
+      bookData.append('id_category', this.book.id_category);  
       axios
         .post("http://localhost:8000/api/v1/book", bookData)
         .then ((res) => {
           console.log(res)
-          this.$router.push('/dashboard')
+          this.$router.go('/dashboard')
         })
         .catch((err) => {
           console.log(err)
         })
     }
-  }
+  },
 };
 </script>
 

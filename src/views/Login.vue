@@ -24,10 +24,18 @@
             </label>
             <a href>Forgot Password</a>
           </div>
-          <div>
-            <!-- <router-link to="/dashboard" class="">Login</router-link> -->
-            <button @click="login" form="form" class="py-1 px-8 rounded bg-black text-white mr-1">Login</button>
-            <router-link class="py-1 px-6 rounded bg-white text-gray-500 border border-solid border-gray-400 ml-1" to="/register">Sign Up</router-link>
+          <div class="flex w-full justify-center text-center">
+            <!-- <button @click="login" form="form" class="py-1 px-8 rounded bg-black text-white mr-1">Login</button>
+            <router-link class="py-1 px-6 rounded bg-white text-gray-500 border border-solid border-gray-400 ml-1" to="/register">Sign Up</router-link> -->
+            <button
+              form="form"
+              @click.once="login"
+              class="h-12 w-1/2 py-1 px-8 rounded bg-black text-white mr-1 flex items-center justify-center"
+            >Login</button>
+            <router-link
+              class="h-12 w-1/2 py-1 px-6 rounded bg-white text-gray-500 border border-solid border-gray-400 mr-1 flex items-center justify-center"
+              to="/register"
+            >Sign Up</router-link>
           </div>
         </section>
       </main>
@@ -76,6 +84,8 @@ export default {
           password: this.password,
         })
         .then((res) => {
+          localStorage.token = res.data.result[0].token
+          localStorage.userId = res.data.result[0].id_user
           this.$router.push('/dashboard')
           console.log(res)
         })
