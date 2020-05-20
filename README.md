@@ -85,3 +85,6 @@ Fork the Project
 ## Related Project
 * [`Library-Backend`](https://github.com/fblazt/library-api)
 
+---
+Copyright © 2020 [Firman](https://github.com/fblazt/)
+
